@@ -41,7 +41,7 @@ category = ['피겨스케이팅','축구','야구','골프','리듬체조']
 total = {}
 
 for i in range(len(athlete)):
-    total[i] = category[i]
+    total[athlete[i]] = category[i]
 print(total)
 
 
