@@ -1,6 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
-for i in range(941,947):
+import time
+start = 941
+end = 946
+for i in range(start, end + 1):
     url = f'https://search.naver.com/search.naver?sm=tab_drt&where=nexearch&query={i}회로또'
     res = requests.get(url)
     if res.status_code != 200:
@@ -9,14 +12,23 @@ for i in range(941,947):
 
     soup = BeautifulSoup(res.text, 'html.parser')
     lotto_numbers = soup.select('.num_box > span')
-    # print(lotto_numbers, type(lotto_numbers))
-    data = []
+    lotto = []
     for number in lotto_numbers:
-        print(number.text, end=' ')
-        f = open('naver-lotto.txt', 'w', encoding='utf-8')
-        data.append(number.text)
-        f.write(str(data))
-        f.close()
-    print()
+       lotto.append(number.text)
+       # print(number.text, end=' ')
+       # p.171 파일 읽고 쓰기(1)
+       #  f = open('lotto.txt','w', encoding='utf-8')
+       #  f.write(number.text)
+       #  f.close()
+       #  p.176~177 with문을 이요해 파일 읽고 쓰기(2)
+       # with open('lotto.txt', 'w', encoding='utf-8') as f:
+        #     f.write(number.text)
+        #
+    with open('lotto.txt', 'a' , encoding='utf-8') as f:
+        f.write(str(lotto))
+        f.write('\n')
+
+    time.sleep(3)
+# print(lotto_numbers, type(lotto_numbers))
 # print(soup, type(soup))
 # print(soup)
